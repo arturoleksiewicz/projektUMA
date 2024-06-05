@@ -21,7 +21,7 @@ class AdvancedTransportEnvironment:
         location, time_step = self.state
         new_location = (location + action) % self.num_locations
         demand = self.demand[new_location, time_step]
-        reward = -abs(new_location - time_step) * demand  # przykładowa funkcja nagrody uwzględniająca popyt
+        reward = -abs(new_location - time_step) * demand  
         self.state = (new_location, time_step + 1)
         done = (time_step + 1 == self.num_time_steps)
         return self.state, reward, done
