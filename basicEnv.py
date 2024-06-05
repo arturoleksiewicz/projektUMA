@@ -17,7 +17,7 @@ class TransportEnvironment:
     def step(self, action):
         location, time_step = self.state
         new_location = (location + action) % self.num_locations
-        reward = -abs(new_location - time_step)  # przykładowa funkcja nagrody
+        reward = -abs(new_location - time_step) 
         self.state = (new_location, time_step + 1)
         done = (time_step + 1 == self.num_time_steps)
         return self.state, reward, done
