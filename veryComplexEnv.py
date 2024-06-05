@@ -29,19 +29,15 @@ class AdvancedTransportEnvironment:
         demand = self.demand[new_location, time_step]
         traffic = self.traffic_conditions[time_step]
         weather = self.weather_conditions[time_step]
-
-        # Adjust reward based on conditions
         reward = -abs(new_location - time_step) * demand
         if traffic == 'congested':
-            reward *= 0.8  # Penalty for traffic congestion
+            reward *= 0.8  
         if weather == 'bad':
-            reward *= 0.9  # Penalty for bad weather
+            reward *= 0.9  
 
-        # Cost calculation
         operational_cost = self.vehicle_costs[new_location] * (1 if available_vehicles > 0 else 2)
         reward -= operational_cost
 
-        # Update available vehicles
         available_vehicles = max(0, available_vehicles - 1) if available_vehicles > 0 else available_vehicles
 
         self.state = (new_location, time_step + 1, available_vehicles)
@@ -148,7 +144,6 @@ def greedy_search(num_episodes_list, num_locations_list, num_time_steps_list, nu
                         plt.legend()
                         plt.show()
 
-    # Save the best parameters and results
     with open('best_params.json', 'w') as f:
         json.dump({'best_params': best_params, 'best_average_reward': best_average_reward}, f)
 
